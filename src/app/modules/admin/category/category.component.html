@@ -1,0 +1,49 @@
+<div class="content">
+    <div class="shadow-sm px-5 py-3 shadow-lg">
+        <h5 class="mb-0 fw-semibold">Thêm Danh Mục Mới</h5>
+    </div>
+
+    <div class="px-5">
+
+        <!--form thêm danh mục-->
+        <button class="btn btn-danger mt-5" (click)="clickAdd = (!clickAdd)">
+            Thêm Danh Mục Mới
+            <i class="fas fa-plus"></i>
+        </button>
+
+        <form class="mt-5" *ngIf="clickAdd">
+            <div class="mb-3 w-25">
+                <label for="categoryName" class="form-label">Tên Danh Mục</label>
+                <input type="text" class="form-control" id="categoryName" ng-model="categoryName">
+            </div>
+
+            <button type="submit" class="btn btn-danger">Thêm Danh Mục</button>
+        </form>
+
+
+        <table class="table table-striped mt-5">
+            <thead>
+                <th>STT</th>
+                <th>Tên Danh Mục</th>
+                <th>Sản Phẩm</th>
+                <th>Thao Tác</th>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="category in listCategory | orderBy: createdAt">
+                    <td>1</td>
+                    <td>category.title</td>
+                    <td> category.productCount</td>
+                    <td>
+                        <button class="btn btn-primary" (click)="edit(1)">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<div class="content">
+    <div class="shadow-sm px-5 py-3 shadow-lg">
+        <h5 class="mb-0 fw-semibold">Thêm Người Dùng Mới</h5>
+    </div>
+
+    <div class="px-5">
+        <div class="row mt-5">
+            <div class="col-3 pe-5">
+                <div
+                    class="p-2 pb-5 d-flex flex-column align-items-center justify-content-between border shadow-sm rounded-3">
+                    <img style="border-radius: 50%;" [src]="urlPreview == '' ? './assets/img/icon/avatar.png' : urlPreview" alt="" class="img-fluid w-50 m-auto">
+                    <input type="file" name="avatar" id="avatar" (change)="changeImage($event)">
+                    <label for="avatar" class="avatar">Chọn Ảnh</label>
+                </div>
+            </div>
+
+            <div class="col-9">
+                <div class="p-5 shadow-sm border">
+                    <form [formGroup]="formVip" class="row" (ngSubmit)="onsubm()">
+                        <div class="col-12 col-md-6 mb-4">
+                            <label for="name" class="form-label">Họ Và Tên <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" formControlName="fullName">
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-4">
+                            <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" formControlName="userName">
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-4">
+                            <label for="password" class="form-label">Mật Khẩu <span class="text-danger">*</span></label>
+                            <input type="password"  class="form-control" formControlName="password">
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-4">
+                            <label for="confirmPassword" class="form-label">Nhập Lại Mật Khẩu <span
+                                    class="text-danger">*</span></label>
+                            <input type="password" class="form-control" formControlName="repassword">
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-4">
+                            <label for="phone" class="form-label">Số Điện Thoại </label>
+                            <input type="text" class="form-control" ng-model="phone" formControlName="phone">
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-4"></div>
+
+                        <div class="col-12 col-md-4 mb-4">
+                            <label class="form-label">Chọn tỉnh / thành phố</label>
+                            <select formControlName="city" (change)="changeCity()"
+                                class="form-control" >
+                                <option disabled value="">Chọn một tỉnh/thành phố</option>
+                                <ng-container *ngFor="let item of location">
+                                    <option [value]="item.Id">{{item.Name}}</option>
+                                </ng-container>
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-4 mb-4">
+                            <label for="district" class="form-label">Quận/Huyện</label>
+                            <select  (change)="changeQuan()"
+                                formControlName="district"
+                                class="form-control">
+                                <option value="" disabled>Chọn một quận/huyện</option>
+                                <ng-container *ngFor="let item of quan">
+                                    <option [value]="item.Id">{{item.Name}}</option>
+                                </ng-container>
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-4 mb-4">
+                            <label for="ward" class="form-label">Phường/Xã</label>
+                            <select formControlName="ward"
+                                class="form-control">
+                                <option value="" disabled>Chọn một phường/xã</option>
+                                <ng-container *ngFor="let item of phuong">
+                                    <option [value]="item.Id">{{item.Name}}</option>
+                                </ng-container>
+                            </select>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <label for="addressDetail" class="form-label">Nhập địa chỉ cụ thể</label>
+                            <input type="text" class="form-control" formControlName="addressDetail"
+                                ng-model="addressDetail">
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <label for="role" class="form-label">Uỷ Quyền</label>
+                            <select name="role" id="role" class="form-select" formControlName="role">
+                                <option value="user">Tài Khoản Khách Hàng</option>
+                                <option value="admin">Quản Trị Viên</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <button type="submit" class="btn btn-danger">Thêm Người Dùng</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

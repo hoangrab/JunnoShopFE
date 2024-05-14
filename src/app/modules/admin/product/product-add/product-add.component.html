@@ -1,0 +1,109 @@
+<div class="content">
+    <div class="shadow-sm px-5 py-3 shadow-lg">
+        <h5 class="mb-0 fw-semibold">Thêm Sản Phẩm Mới</h5>
+    </div>
+
+    <div class="px-5">
+        <form class="row my-5" (ngSubmit)="onsubm()" [formGroup]="formVip">
+
+            <div class="col-12 col-md-6 mb-4">
+                <label for="name">Tên Sản Phẩm</label>
+                <input type="text" class="form-control" id="name" formControlName="name">
+            </div>
+
+            <div class="col-12 col-md-6 mb-4">
+                <label for="category">Loại Sản Phẩm</label>
+                <select name="category" id="category" class="form-select" formControlName="categoryId">
+                    <option value="">Chọn Loại Sản Phẩm</option>
+                    <ng-container >
+                        <option [value]="true">category.title</option>
+                    </ng-container>
+                </select>
+            </div>
+
+            <div class="col-12 col-md-6 mb-4">
+                <label for="price">Giá </label>
+                <input type="number" class="form-control" id="price" formControlName="priceCurrent">
+            </div>
+
+            <div class="col-12 col-md-6 mb-4">
+                <label for="sale">Giảm Giá</label>
+                <input type="number" class="form-control" id="sale" formControlName="priceReduced">
+            </div>
+
+            <div class="col-12 col-md-6 mb-4">
+                <label for="isFlashSale" class="form-label">Tuỳ Chọn Sản Phẩm</label>
+                <select id="isFlashSale" class="form-select" formControlName="flashSale">
+                    <option value="">Chọn</option>
+                    <option value="false">Mặc Định</option>
+                    <option value="true">Flash Sale</option>
+                </select>
+            </div>
+
+            <div class="col-12 mb-4">
+                <label for="image" class="form-label">Ảnh</label>
+                <input type="file" class="form-control" id="images" multiple (change)="changeImage($event)">
+            </div>
+            <div id="image-preview">
+                <!-- <img style="height: 150px;width: 150px;" src="https://tse2.mm.bing.net/th?id=OIP.kB0p4LoNmd5aaYkzvMANrQHaI8&pid=Api&P=0&h=180" alt="">&nbsp;
+                <img style="height: 150px;width: 150px;" src="https://tse2.mm.bing.net/th?id=OIP.kB0p4LoNmd5aaYkzvMANrQHaI8&pid=Api&P=0&h=180" alt="">&nbsp;
+                <img style="height: 150px;width: 150px;" src="https://tse2.mm.bing.net/th?id=OIP.kB0p4LoNmd5aaYkzvMANrQHaI8&pid=Api&P=0&h=180" alt="">&nbsp; -->
+                <ng-container *ngFor="let item of urlPreview">
+                    <img style="height: 150px;width: 150px;" [src]="item">&nbsp;
+                </ng-container>
+                <br>
+                <br>
+                <br>
+
+            </div>
+
+            <ng-container *ngFor="let control of numbersArray; let i = index">
+
+                <div class="row" ng-repeat="variant in variants">
+                  <div class="col-3 mb-3">
+                      <label for="color">Màu Sắc</label>
+                      <input type="text" class="form-control" formControlName="color{{control}}">
+                  </div>
+                
+                  <div class="col-3 mb-3">
+                      <label for="size">Kích Thước</label>
+                      <input type="text" class="form-control" formControlName="size{{control}}">
+                  </div>
+                
+                  <div class="col-3 mb-3">
+                      <label for="quantity">Số Lượng</label>
+                      <input type="number" class="form-control" formControlName="sl{{control}}">
+                  </div>
+                  <div class="col-3 mb-3">
+                    <!-- <label for="">j</label>
+                    <button style="display: inline;" (click)="removeInput(control)">Remove</button><br> -->
+                    <button style="margin-top: 22px;" class="btn btn-danger" (click)="removeInput(control)">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                </div>
+                
+              </ng-container>
+
+            <div class="col-12 mb-4">
+                <button class="btn btn-danger" type="button" (click)="addInput()">
+                    Thêm
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+
+
+
+            <div class="col-12 mb-4">
+                <label for="description">Mô Tả</label>
+                <textarea name="description" id="description" ng-model="description" cols="30" rows="4"
+                    class="form-control"> </textarea>
+            </div>
+
+            <div class="col-12 mb-4">
+                <button class="btn btn-danger" type="submit">Thêm Sản Phẩm</button>
+            </div>
+            <p>{{formVip.value | json}}</p>
+        </form>
+    </div>
+</div>
