@@ -10,18 +10,22 @@ export class CategoryService {
   constructor(private http : HttpClient) { }
 
   getAll() {
-    return this.http.get(`${BaseUrlApi.url}`);
+    return this.http.get(`${BaseUrlApi.url}categories`);
+  }
+
+  getById(id : string) {
+    return this.http.get(`${BaseUrlApi.url}category/${id}`);
   }
 
   create(formdata : FormData) {
-    return this.http.post(`${BaseUrlApi.url}`,formdata);
+    return this.http.post(`${BaseUrlApi.url}category`,formdata);
   }
 
   update(formdata : FormData, id : string) {
-    return this.http.put(`${BaseUrlApi.url}/${id}`,formdata);
+    return this.http.put(`${BaseUrlApi.url}category/${id}`,formdata);
   }
 
   delete(id : string) {
-    return this.http.delete(`${BaseUrlApi.url}/${id}`);
+    return this.http.delete(`${BaseUrlApi.url}category/${id}`);
   }
 }

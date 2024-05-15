@@ -34,6 +34,7 @@ import { ProductEditComponent } from './product/product-edit/product-edit.compon
     UserAddComponent,
     UserEditComponent,
     CouponAddComponent,
+    CouponComponent,
     CategoryComponent,
     CategoryEditComponent,
     ProductAddComponent,
@@ -42,6 +43,7 @@ import { ProductEditComponent } from './product/product-edit/product-edit.compon
     CouponEditComponent,
     OrderComponent,
     OrderDetailComponent,
+    ProductComponent,
     ProductEditComponent
   ],
   imports: [

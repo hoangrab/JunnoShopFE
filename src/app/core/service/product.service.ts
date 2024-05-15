@@ -10,7 +10,7 @@ export class ProductService {
   constructor(private http : HttpClient){}
   
   getAll() {
-    return this.http.get(`${BaseUrlApi.url}`);
+    return this.http.get(`${BaseUrlApi.url}products`);
   }
 
   create(formdata : FormData) {

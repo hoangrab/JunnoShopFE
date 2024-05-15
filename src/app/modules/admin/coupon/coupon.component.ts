@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
+import { CouponService } from 'src/app/core/service/coupon.service';
 
 @Component({
   selector: 'app-coupon',
@@ -7,7 +9,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./coupon.component.css']
 })
 export class CouponComponent {
-  constructor(private router: Router) {}
+
+  listCoupons : any
+
+  constructor(private router: Router, private couponSv : CouponService) {}
+
+  ngOnInit() {
+    this.couponSv.get().subscribe(parm => this.listCoupons = of(parm)) 
+  }
 
   navigateTo(route: string): void {
     console.log(route)

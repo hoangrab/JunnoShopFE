@@ -3,27 +3,27 @@
 <div class="row mt-5 px-5" ng-show="showEditForm">
     <div class="mb-3 col-12">
         <label for="categoryName" class="form-label">Tên Danh Mục</label>
-        <input type="text" class="form-control" id="categoryName" ng-model="categoryName">
+        <input type="text" class="form-control" id="categoryName" ng-model="categoryName" [value]="category.name || ''">
     </div>
 
     <div class="mb-3 col-6">
         <label for="createdAt" class="form-label">Ngày Tạo Danh Mục</label>
         <input type="text" class="form-control" id="createdAt"
-            ng-model="createdAt | date : 'HH:mm:ss dd-MM-yyyy'" disabled>
+            [value]="category.createdAt" disabled>
     </div>
 
     <div class="mb-3 col-6">
         <label for="updatedAt" class="form-label">Cập Nhật Lần Cuối</label>
         <input type="text" class="form-control" id="updatedAt"
-            ng-model="updatedAt | date : 'HH:mm:ss dd-MM-yyyy'" disabled>
+        [value]="category.updatedAt" disabled>
     </div>
 
     <div class="my-3 col-4">
         <button class="btn btn-danger" ng-click="updateCategorySubmit()">
             Lưu Thay Đổi
         </button>
-
-        <button class="btn btn-secondary" ng-click="showEditForm = false">
+        &nbsp;&nbsp;
+        <button class="btn btn-secondary" [routerLink]="(['/admin/category'])">
             Hủy
         </button>
     </div>

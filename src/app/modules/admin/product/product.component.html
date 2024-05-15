@@ -5,7 +5,7 @@
 
     <div class="px-5">
         <div class="d-flex justify-content-between align-items-center mt-5">
-            <a href="#!product/add" class="btn btn-danger">Thêm Sản Phẩm Mới
+            <a [routerLink]="'/admin/product/add'" class="btn btn-danger">Thêm Sản Phẩm Mới
                 <i class="fas fa-plus"></i>
             </a>
         </div>
@@ -24,18 +24,22 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="product in displayedProducts">
+                <tr *ngFor="let item of listPro | async">
                     <td>
-                        <img src="" alt="" class="img-fluid"
+                        <img [src]="item.productImages[0].imageUrl" alt="" class="img-fluid"
                             style="width: 50px;">
                     </td>
-                    <td>product.title</td>
-                    <td>product.category.title</td>
-                    <td>product.price đ</td>
-                    <td>product.sale%</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.category.name}}</td>
+                    <td>{{item.originalPrice}} đ</td>
+                    <td>{{item.salePrice}}</td>
                     <td>
-                        <input type="checkbox" ui-switchery class="form-check-input" ng-model="product.isFlashSale"
-                            ng-change="changeFlashSale(product)">
+                        <div class="checkbox-wrapper-49">
+                            <div class="block">
+                              <input [checked]="item.flashSale == true ? true : false" data-index="0" [id]="item.id" type="checkbox" />
+                              <label [htmlFor]="item.id"></label>
+                            </div>
+                          </div>
                     </td>
                     <td>
                         <button class="btn btn-danger" ng-click="deleteProduct(product)">
