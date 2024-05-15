@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { RegisterComponent } from './register/register.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -27,6 +28,7 @@ import { RegisterComponent } from './register/register.component';
     ClientRoutingModule,
     GoogleSigninButtonModule,
     ReactiveFormsModule,
+    RouterModule
   ]
 })
 export class ClientModule { }

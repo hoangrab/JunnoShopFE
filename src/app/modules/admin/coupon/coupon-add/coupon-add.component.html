@@ -4,23 +4,31 @@
     </div>
 
     <div class="px-5">
-        <form class="mt-5" ng-submit="addCoupon()">
+        <form class="mt-5" (ngSubmit)="onsubm()" [formGroup]="formVip" >
             <div class="mb-3">
                 <label for="name" class="form-label">Tên Mã Giảm Giá</label>
-                <input type="text" class="form-control" id="name" ng-model="name">
+                <input type="text" class="form-control" id="name" formControlName="code">
             </div>
 
             <div class="mb-3">
-                <label for="discount" class="form-label">Giảm Giá</label>
-                <input type="number" class="form-control" id="discount" ng-model="discount">
+                <label for="discount" class="form-label">Giảm Giá (%)</label>
+                <input type="number" class="form-control" id="discount" min="0" max="100" formControlName="percent">
             </div>
 
             <div class="mb-3">
-                <label for="expiry" class="form-label">Hạn Sử Dụng</label>
-                <input type="number" class="form-control" id="expiry" ng-model="expiry" placeholder="Ngày">
+                <label for="expiry" class="form-label">Ngày bắt đầu</label>
+                <input type="date" class="form-control" id="expiry" formControlName="dateStart">
             </div>
 
+            <div class="mb-3">
+                <label for="expiry" class="form-label">Ngày kết thúc</label>
+                <input type="date" class="form-control" id="expiry" formControlName="dateEnd">
+            </div>
+
+            <!-- {{formVip.value | json}} -->
             <button type="submit mt-3" class="btn btn-danger">Thêm Mã</button>
+            &nbsp;&nbsp;
+            <button (click)="quaylai()" type="button mt-3" class="btn btn-secondary">Quay lại</button>
         </form>
     </div>
 </div>

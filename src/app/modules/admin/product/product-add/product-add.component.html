@@ -15,8 +15,8 @@
                 <label for="category">Loại Sản Phẩm</label>
                 <select name="category" id="category" class="form-select" formControlName="categoryId">
                     <option value="">Chọn Loại Sản Phẩm</option>
-                    <ng-container >
-                        <option [value]="true">category.title</option>
+                    <ng-container *ngFor="let item of listCate | async" >
+                        <option [value]="item.id">{{item.name}}</option>
                     </ng-container>
                 </select>
             </div>
@@ -34,8 +34,7 @@
             <div class="col-12 col-md-6 mb-4">
                 <label for="isFlashSale" class="form-label">Tuỳ Chọn Sản Phẩm</label>
                 <select id="isFlashSale" class="form-select" formControlName="flashSale">
-                    <option value="">Chọn</option>
-                    <option value="false">Mặc Định</option>
+                    <option [selected]="true" value="false">Mặc Định</option>
                     <option value="true">Flash Sale</option>
                 </select>
             </div>
@@ -96,7 +95,7 @@
 
             <div class="col-12 mb-4">
                 <label for="description">Mô Tả</label>
-                <textarea name="description" id="description" ng-model="description" cols="30" rows="4"
+                <textarea name="description" id="description" formControlName="description" cols="30" rows="4"
                     class="form-control"> </textarea>
             </div>
 

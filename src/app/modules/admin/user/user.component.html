@@ -6,7 +6,7 @@
     <div class="px-5">
 
         <div class="d-flex justify-content-between align-items-center mt-5">
-            <a href="#!user/add" class="btn btn-danger">Thêm Người Dùng Mới
+            <a [routerLink]="'/admin/user/add'" class="btn btn-danger">Thêm Người Dùng Mới
                 <i class="fas fa-plus"></i>
             </a>
         </div>
@@ -26,7 +26,7 @@
                 <tr *ngFor="let item of listUser | async">
                     <td>{{item.id}}</td>
                     <td>
-                        <img style="height: 30px;width: 30px;" [src]="item.avatar" alt="">
+                        <img style="height: 30px;width: 30px;" [src]="item.avatar || './assets/img/icon/avatar.png'" alt="">
                     </td>
                     <td>{{item.fullName}}</td>
                     <td>{{item.email}}</td>
@@ -44,7 +44,7 @@
                         <span *ngIf="item.role.id == '2'">Khách Hàng</span>
                     </td>
                     <td>
-                        <a class="btn btn-primary" href="#">
+                        <a [routerLink]="['/admin/user/edit']" class="btn btn-primary" href="#">
                             <i class="fas fa-edit"></i>
                         </a>
                         &nbsp;&nbsp;

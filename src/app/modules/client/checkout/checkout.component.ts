@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Route, Router, RouterLinkActive } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CouponService } from 'src/app/core/service/coupon.service';
 import { location } from 'src/app/shared/model/location';
@@ -18,7 +19,7 @@ export class CheckoutComponent {
 
   formVip !: FormGroup;
 
-  constructor( private builder : FormBuilder, private couponSv : CouponService){}
+  constructor( private builder : FormBuilder, private couponSv : CouponService, private router : Router){}
   ngOnInit(){
     this.formVip = this.builder.group({
       tp : [''],
@@ -39,16 +40,17 @@ export class CheckoutComponent {
   }
 
   checkne() {
-    setInterval(() => {
-      this.couponSv.get().subscribe({
-        next : (value) => {
-            console.log('goi ne', value)
-            this.param = value;
-        },
-        error(err) {
-            console.log('chay ra loi', err)
-        },
-      })
-    },10000)
+    // setInterval(() => {
+    //   this.couponSv.get().subscribe({
+    //     next : (value) => {
+    //         console.log('goi ne', value)
+    //         this.param = value;
+    //     },
+    //     error(err) {
+    //         console.log('chay ra loi', err)
+    //     },
+    //   })
+    // },10000)
+    window.open('http://localhost:8080/api/v1/payment/create?money=1000000&content=hiban', '_blank');
   }
 }
