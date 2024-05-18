@@ -11,6 +11,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { RegisterComponent } from './register/register.component';
 import { RouterModule } from '@angular/router';
+import { ProductComponent } from './product/product.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { CartComponent } from './cart/cart.component';
+import { LookupComponent } from './lookup/lookup.component';
 
 
 
@@ -21,14 +26,21 @@ import { RouterModule } from '@angular/router';
     FooterComponent,
     LoginComponent,
     CheckoutComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProductComponent,
+    WishlistComponent,
+    ProductDetailComponent,
+    CartComponent,
+    CheckoutComponent,
+    LookupComponent
   ],
   imports: [
     CommonModule,
     ClientRoutingModule,
     GoogleSigninButtonModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ]
 })
 export class ClientModule { }

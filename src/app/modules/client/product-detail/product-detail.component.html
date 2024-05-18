@@ -27,10 +27,10 @@
                     <a href="#" class="text-decoration-none text-dark text-light">Trang Chủ</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="#" class="text-decoration-none text-dark text-light">product.category.title</a>
+                    <a href="#" class="text-decoration-none text-dark text-light">{{product.category.name}}</a>
                 </li>
                 <li class="breadcrumb-item active text-danger fw-medium" aria-current="page">
-                    product.title
+                    {{product.name}}
                 </li>
             </ol>
         </nav>
@@ -38,9 +38,11 @@
         <div class="row mt-3">
             <div class="col-xl-6 col-sm-12">
                 <div class="d-flex">
-                    <div class="img-small d-flex flex-column gap-3 me-3">
-                        <img ng-repeat="image in product.images" src="" class="img-fluid cursor-pointer"
+                    <div class="img-small d-flex flex-row gap-3 me-3">
+                        <ng-container *ngFor="let item of product.productImages">
+                            <img [src]="item.imageUrl" class="img-fluid cursor-pointer"
                             width="200px" />
+                        </ng-container>
                     </div>
 
                     <div class="img-larger">
@@ -52,13 +54,16 @@
             <div class="col-xl-6 col-sm-12 ps-5 d-flex flex-column gap-4">
 
                 <div class="d-flex flex-column gap-1">
-                    <h4 class="text-start fw-bold mb-0">product.title</h4>
+                    <h4 class="text-start fw-bold mb-0">{{product.name}}</h4>
 
                     <div class="star-group text-warning">
-                        <span ng-if="product.totalRating === 0">Chưa có đánh giá</span>
+                        <!-- <span ng-if="product.totalRating === 0">Chưa có đánh giá</span> -->
 
-                        <i class="fa-solid fa-star"
-                            ng-repeat="i in [].constructor(product.totalRating) track by $index"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
                     </div>
 
                 </div>
@@ -73,31 +78,33 @@
                         <p class="mb-0 fw-bold fs-4 text-danger">
                             <!-- {{ product.sale > 0 ? ((product.price - (product.price * product.sale / 100)) |
                             currency:'':'0') + 'đ' : (product.price | currency:'':'0') + 'đ' }} -->
-                            999
+                            {{product.originalPrice}}
                         </p>
                         <p class="mb-0 fw-light text-decoration-line-through" ng-if="product.sale > 0">
                             <!-- {{ product.sale > 0 ? (product.price | currency:'':'0') + 'đ' : '' }} -->
-                            999
+                            {{product.salePrice}}
                         </p>
                         <span class="badge text-bg-danger" ng-if="product.sale > 0">
-                            product.sale%
+                            10%
                         </span>
                     </div>
 
                     <div class="icon-check">
                         <span class="fw-medium">Còn Hàng</span>
-                        <img src="./src/assets/img/icon/icon-check.svg" alt />
+                        <img src="./assets/img/icon/icon-check.svg" alt />
                     </div>
                 </div>
 
                 <div>
                     <label for="selectedVariant" class="form-label">Chọn loại sản phẩm</label>
-                    <select class="form-control w-25" ng-model="selectedVariant"
-                        ng-options="variant._id as (variant.color + ' - ' + variant.size ) for variant in product.variants">
+                    <select class="form-control w-25" [(ngModel)]="pselectDefault" (change)="sl = 1">
+                        <ng-container *ngFor="let item of product.productItems;index as index">
+                            <option [selected]="index == pselectDefault" [value]="index" >{{item.size}} - {{item.color}}</option>
+                        </ng-container>
                     </select>
 
                     <div ng-show="selectedVariant">
-                        <p class="mb-0 mt-3">Số lượng: 999</p>
+                        <p class="mb-0 mt-3">Số lượng: {{product.productItems[pselectDefault].quantity}}</p>
                     </div>
                 </div>
 
@@ -105,10 +112,10 @@
                     <div class="d-flex flex-column gap-2">
                         <span class="fs-6 fw-bold d-block">Số Lượng</span>
                         <div class="d-flex">
-                            <div class="custom-btn-quantity" ng-click="changeQuantity('decrease')">-</div>
-                            <input type="number" name="quantity" id="quantity" class="custom-input-quantity text-center"
-                                ng-model="quantity">
-                            <div class="custom-btn-quantity" ng-click="changeQuantity('increase')">+</div>
+                            <button [disabled]="sl==1" style="cursor: pointer;" class="custom-btn-quantity" (click)="changeSl(0)">-</button>
+                            <input readonly type="number" name="quantity" id="quantity" class="custom-input-quantity text-center"
+                                [(ngModel)]="sl">
+                            <button [disabled]="sl == product.productItems[this.pselectDefault].quantity" class="custom-btn-quantity" (click)="changeSl(1)">+</button>
                         </div>
                     </div>
                 </div>
@@ -116,7 +123,7 @@
 
                 <div class="size-guide">
                     <span type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <img src="./src/assets/img/icon/icon-lc.svg" />
+                        <img src="./assets/img/icon/icon-lc.svg" />
                         Hướng Dẫn Chọn Kích Thước
                     </span>
 
@@ -126,7 +133,7 @@
                             <div class="modal-content">
 
                                 <div class="modal-body">
-                                    <img src="./src/assets/img/product/size_guide.webp" class="img-fluid w-100">
+                                    <img src="./assets/img/product/size_guide.webp" class="img-fluid w-100">
                                 </div>
                             </div>
                         </div>
@@ -134,15 +141,15 @@
                 </div>
 
                 <div class="group-btn d-flex gap-4">
-                    <div class="btn btn-outline-danger rounded-1 w-100 py-2" ng-class="{'disabled': !isLogin}"
-                        ng-click="addToWishlist(product._id)">
+                    <div class="btn btn-outline-danger rounded-1 w-100 py-2" [ngClass]="islogin == false ? 'disabled' : '' "
+                        (click)="addwishlist()">
                         <i class="fa-solid fa-heart"></i>
                         Yêu Thích
                     </div>
 
 
-                    <div class="btn btn-danger rounded-1 w-100 py-2" ng-click="addToCart(product)">
-                        <img src="./src/assets/img/icon/icon-cart-plus.svg" />
+                    <div (click)="addToCart()" class="btn btn-danger rounded-1 w-100 py-2" [ngClass]="islogin == false ? 'disabled' : '' ">
+                        <img src="./assets/img/icon/icon-cart-plus.svg" />
                         Thêm Vào Giỏ Hàng
                     </div>
                 </div>
@@ -155,19 +162,19 @@
                 <div
                     class="group-delivery d-flex align-items-center justify-content-between gap-4 text-center pt-3 border-top border-dark-subtle">
                     <div class="d-flex flex-column gap-2 align-items-center justify-content-center">
-                        <img src="./src/assets/img/icon/icon-delivery.svg" class="img-fluid">
+                        <img src="./assets/img/icon/icon-delivery.svg" class="img-fluid">
                         <span>
                             Miễn phí vận chuyển với đơn hàng từ 500K
                         </span>
                     </div>
                     <div class="d-flex flex-column gap-2 align-items-center justify-content-center">
-                        <img src="./src/assets/img/icon/icon-circle-arrow.svg" class="img-fluid">
+                        <img src="./assets/img/icon/icon-circle-arrow.svg" class="img-fluid">
                         <span>
                             1 đổi 1 trong vòng 7 ngày
                         </span>
                     </div>
                     <div class="d-flex flex-column gap-2 align-items-center justify-content-center">
-                        <img src="./src/assets/img/icon/icon-delivery.svg" class="img-fluid">
+                        <img src="./assets/img/icon/icon-delivery.svg" class="img-fluid">
                         <span>
                             Kiếm tra hàng trước khi thanh toán
                         </span>
@@ -188,7 +195,7 @@
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            product.description
+                            {{product.description}}
                         </div>
                     </div>
                 </div>
@@ -203,7 +210,7 @@
                     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body" ng-show="product.totalRating === 0">
                             <div class="py-3 d-flex flex-column gap-3 align-items-center justify-content-center">
-                                <img src="./src/assets/img/icon/EmtyReview.86be870e.svg" class="img-fluid d-block">
+                                <img src="./assets/img/icon/EmtyReview.86be870e.svg" class="img-fluid d-block">
                                 <p class="mb-0 fw-medium fs-6">Sản Phẩm Này Chưa Có Đánh Giá</p>
                             </div>
                         </div>
@@ -218,40 +225,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="review in product.rating">
-                                        <td>review.postedBy.name</td>
+                                    <tr *ngFor="let review of product.productReviews">
+                                        <td>{{review.name}}</td>
                                         <td>
                                             <div class="star-group
                                                 text-warning">
-                                                <i class="fa-solid fa-star"
-                                                    ng-repeat="i in [].constructor(review.star) track by $index"></i>
-                                                    <i class="fa-solid fa-star"
-                                                    ng-repeat="i in [].constructor(review.star) track by $index"></i>
+                                                <ng-container *ngFor="let item of counter(review.rating)">
+                                                    <i class="fa-solid fa-star"></i>
+                                                </ng-container>
                                             </div>
                                         </td>
-                                        <td>review.comment</td>
+                                        <td>{{review.content}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <div class="accordion-body" ng-show="isLogin">
-                            <form ng-submit="addReview()" class="d-flex flex-column gap-2 border p-5">
+                        <div class="accordion-body" *ngIf="islogin">
+                            <form (ngSubmit)="sbmReview()" class="d-flex flex-column gap-2 border p-5" [formGroup]="formReview">
                                 <div class="d-flex mb-3">
                                     <div class="rating">
-                                        <input type="radio" id="star5" name="rating" ng-value="5" ng-model="rating">
+                                        <input type="radio" id="star5" name="rating" value="5" formControlName="rating">
                                         <label for="star5" title="5 sao" class="fa-solid fa-star fs-3"></label>
 
-                                        <input type="radio" id="star4" name="rating" ng-value="4" ng-model="rating">
+                                        <input type="radio" id="star4" name="rating" value="4" formControlName="rating">
                                         <label for="star4" title="4 sao" class="fa-solid fa-star fs-3"></label>
 
-                                        <input type="radio" id="star3" name="rating" ng-value="3" ng-model="rating">
+                                        <input type="radio" id="star3" name="rating" value="3" formControlName="rating">
                                         <label for="star3" title="3 sao" class="fa-solid fa-star fs-3"></label>
 
-                                        <input type="radio" id="star2" name="rating" ng-value="2" ng-model="rating">
+                                        <input type="radio" id="star2" name="rating" value="2" formControlName="rating">
                                         <label for="star2" title="2 sao" class="fa-solid fa-star fs-3"></label>
 
-                                        <input type="radio" id="star1" name="rating" ng-value="1" ng-model="rating">
+                                        <input select type="radio" id="star1" name="rating" value="1" formControlName="rating">
                                         <label for="star1" title="1 sao" class="fa-solid fa-star fs-3"></label>
                                     </div>
                                 </div>
@@ -259,7 +265,7 @@
                                 <div class="mb-3">
                                     <label for="exampleFormControlTextarea1" class="form-label">Đánh Giá</label>
                                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                        ng-model="content"></textarea>
+                                        formControlName="content"></textarea>
                                 </div>
 
                                 <button type="submit" class="btn btn-danger">Gửi Đánh Giá</button>
@@ -267,7 +273,7 @@
 
                         </div>
 
-                        <div class="accordion-body text-center" ng-if="!isLogin">
+                        <div class="accordion-body text-center" *ngIf="!islogin">
                             <a href="#!login" class="btn btn-danger px-5">Bạn Cần Đăng Nhập</a>
                         </div>
                     </div>

@@ -12,6 +12,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { CartComponent } from './cart/cart.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { UserOrderComponent } from './user-order/user-order.component';
+import { LookupComponent } from './lookup/lookup.component';
 
 const routes: Routes = [
   {
@@ -34,13 +35,16 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  
+  {
+    path:'lookup',
+    component: LookupComponent
+  },
   {
     path: 'products',
     component: ProductComponent
   },
   {
-    path: 'product-detail',
+    path: 'product-detail/:id',
     component: ProductDetailComponent
   },
   {

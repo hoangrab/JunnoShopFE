@@ -13,6 +13,10 @@ export class ProductService {
     return this.http.get(`${BaseUrlApi.url}products`);
   }
 
+  getById(id : string) {
+    return this.http.get(`${BaseUrlApi.url}product/${id}`);
+  }
+
   create(formdata : FormData) {
     return this.http.post(`${BaseUrlApi.url}product`,formdata);
   }
