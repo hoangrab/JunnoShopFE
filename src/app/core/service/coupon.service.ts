@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseUrlApi } from '../env/enviroment';
+import { Observable, count } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,10 @@ export class CouponService {
 
   get() {
     return this.http.get(`${BaseUrlApi.url}coupons`);
+  }
+
+  getByCode(code : string) : Observable<any> {
+    return this.http.get(`${BaseUrlApi.url}coupon?code=${code}`)
   }
 
   create(formdata: FormData) {

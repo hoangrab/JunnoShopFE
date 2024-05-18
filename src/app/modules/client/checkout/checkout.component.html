@@ -1,6 +1,6 @@
 <main class="body">
     <div class="cart-top mt-5 d-flex align-items-center justify-content-center flex-wrap gap-5">
-        <a class="d-flex align-items-center gap-2 nav-link" href="#!cart">
+        <a class="d-flex align-items-center gap-2 nav-link" [routerLink]="'public/cart'">
             <img src="./assets/img/icon/icon-cart-3.svg" class="img-fluid">
             <span class="fs-5 fw-light">Giỏ Hàng</span>
         </a>
@@ -27,8 +27,8 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <h4 class="text-start fw-bold mb-0">Địa Chỉ Giao Hàng</h4>
 
-                    <a class="icon-login d-flex align-items-center gap-1 nav-link" ng-show="!isLogin" href="#!login">
-                        <img src="./src/assets/img/icon/icon-user-circle.svg" alt="">
+                    <a class="icon-login d-flex align-items-center gap-1 nav-link" *ngIf="!isLogin" [routerLink]="'public/login'">
+                        <img src="./assets/img/icon/icon-user-circle.svg" alt="">
                         <span class="text-danger">Đăng Nhập</span>
                     </a>
                 </div>
@@ -96,12 +96,13 @@
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <h5 class="text-left fw-medium mb-0 d-flex align-items-center gap-2 mb-2">
-                            <img src="./src/assets/img/icon/icon-payment.svg" alt="">
+                            <img src="./assets/img/icon/icon-payment.svg" alt="">
                             <span>Phương Thức Thanh Toán</span>
                         </h5>
 
-                        <select name="payment" id="payment" class="form-select" ng-model="paymentMethod">
-                            <option value="Thanh Toán Khi Nhận Hàng">Thanh Toán Khi Nhận Hàng</option>
+                        <select class="form-select" formControlName="method" (change)="changeMethod()">
+                            <option [value]="true">Thanh Toán Online</option>
+                            <option [value]="false">Thanh Toán Khi Nhận Hàng</option>
                         </select>
                     </div>
 
@@ -135,16 +136,16 @@
                         </div>
 
                         <form class="position-relative" ng-submit="applyCoupon()">
-                            <input type="text" name="discount" id="discount" class="form-control" ng-model="couponCode"
+                            <input type="text" name="discount" id="discount" class="form-control" [(ngModel)]="coupon"
                                 placeholder="Nhập Mã Giảm Giá">
-                            <button class="btn btn-danger btn-md position-absolute top-0 end-0" type="submit">
+                            <button class="btn btn-danger btn-md position-absolute top-0 end-0" (click)="checkCoupon()"  type="submit">
                                 <i class="fa-solid fa-arrow-right"></i>
                             </button>
                         </form>
 
                         <div class="d-flex align-items-center justify-content-between">
                             <p class="mb-1 fw-medium">Giảm Giá</p>
-                            <p class="mb-1 fw-medium">discountđ</p>
+                            <p class="mb-1 fw-medium">{{(tongtien / 100) * percent}}đ</p>
                         </div>
 
                         <div class="d-flex align-items-center justify-content-between">
@@ -153,19 +154,19 @@
                         </div>
                         <div class="d-flex align-items-center justify-content-between">
                             <p class="mb-1 fw-medium">Trạng thái</p>
-                            <p class="mb-1 fw-medium">{{param }}</p>
+                            <p class="mb-1 fw-medium">{{param || 'Chưa thanh toán' }}</p>
                         </div>
                     </div>
 
                     <div class="custom-dash d-flex flex-column gap-2 pb-3">
                         <div class="d-flex align-items-center justify-content-between">
                             <h5 class="mb-0 text-danger fw-bold">Tổng Tiền</h5>
-                            <h5 class="mb-0 text-danger fw-bold">totalPriceđ</h5>
+                            <h5 class="mb-0 text-danger fw-bold">{{tongtien - ((tongtien / 100) * percent)}}đ</h5>
                         </div>
                     </div>
 
                     <br>
-                    <div class=" d-flex flex-column gap-2 pb-3">
+                    <div class=" d-flex flex-column gap-2 pb-3" *ngIf="method">
                         <div class="d-flex align-items-center justify-content-between">
                             <button (click)="checkne()" style="border: 0;" class="btn btn-danger">Thanh toán</button>
                         </div>
@@ -187,25 +188,25 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="item in cart" class="position-relative">
+                <tr *ngFor="let item of listProduct" class="position-relative">
                     <td>1</td>
                     <td>
-                        <img src="" width="50px">
+                        <img [src]="item.image" width="50px">
                     </td>
                     <td>
-                        <h6>item.product.title</h6>
+                        <h6>{{item.name}}</h6>
                         <p>
-                            Kích thước: item.variant.size 
+                            Kích thước: {{item.size}}
                             <br>
-                            Màu sắc: item.variant.color 
+                            Màu sắc: {{item.color}}
                         </p>
                     </td>
-                    <td>item.product.priceđ</td>
+                    <td>{{item.price}}đ</td>
                     <td>
-                        item.quantity
+                        {{item.numchoose}}
                     </td>
                     <td>
-                        item.product.priced
+                        {{item.numchoose * item.price}}
                     </td>
                 </tr>
             </tbody>

@@ -5,11 +5,12 @@
                 <div class="">
                     <a href="#!product" class="nav-link w-100 fs-6 fw-medium custom-pd mb-3">Tất Cả Sản Phẩm</a>
 
-                    <a href="#"
-                        class="nav-link w-100 fs-6 fw-medium custom-pd mb-3 ng-binding ng-scope"
-                        ng-repeat="category in categories">
-                        category.title
+                    <ng-container *ngFor="let item of listCates">
+                        <a href="#"
+                        class="nav-link w-100 fs-6 fw-medium custom-pd mb-3 ng-binding ng-scope">
+                        {{item.name}}
                     </a>
+                    </ng-container>
                 </div>
             </div>
 
@@ -17,10 +18,10 @@
                 <div class="custom-dash pb-3">
                     <div class="d-flex align-items-center justify-content-between">
                         <h1 class="fs-4 fw-bold">
-                            categoryName
+                            Tất Cả Sản Phẩm
                         </h1>
 
-                        routeParams.category_id
+                        <!-- routeParams.category_id -->
                     </div>
                 </div>
 
@@ -38,38 +39,38 @@
 
 
                 <div class="row mt-3 row-gap-4">
-                    <div class="col-xl-2 col-md-4 col-6" ng-repeat="product in displayedProducts">
+                    <div class="col-xl-2 col-md-4 col-6" *ngFor="let item of listProducts">
                         <div class="card position-relative custom-card-hover">
-                            <a href="#" class="nav-link p-2">
-                                <img src="" class="img-fluid card-img-top"
+                            <a [routerLink]="'/public/product-detail/' + item.id" class="nav-link p-2">
+                                <img [src]="item.productImages[0].imageUrl" class="img-fluid card-img-top"
                                     style="height: 240px !important;object-fit: cover;">
                             </a>
                             <div class="card-body p-2">
                                 <a class="nav-link fs-7" href="">
-                                    product.title
+                                    {{item.name}}
                                 </a>
 
                                 <div class="d-flex align-items-center justify-content-start gap-2">
                                     <p class="text-danger fw-bold mb-0">
                                         <!-- {{ product.sale > 0 ? ((product.price - (product.price * product.sale / 100)) |
                                         currency:'':'0') + 'đ' : (product.price | currency:'':'0') + 'đ' }} -->
-                                        999%
+                                        {{item.salePrice}}
                                     </p>
                                     <p class="mb-0 fs-8 text-decoration-line-through">
                                         <!-- {{ product.sale > 0 ? (product.price | currency:'':'0') + 'đ' : '' }} -->
-                                        999
+                                        {{item.originalPrice}}
                                     </p>
                                 </div>
                             </div>
 
                             <span class="badge text-bg-danger position-absolute p-2" ng-if="product.sale > 0">
-                                999%
+                                10%
                             </span>
                         </div>
                     </div>
                 </div>
 
-                <div class="text-center mt-5">
+                <!-- <div class="text-center mt-5">
                     <button ng-if="displayedProducts.length < products.length" ng-click="loadMore()"
                         class="btn btn-danger">
                         Xem thêm
@@ -98,7 +99,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
