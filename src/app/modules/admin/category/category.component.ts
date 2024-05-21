@@ -91,11 +91,11 @@ export class CategoryComponent {
       if (result.isConfirmed) {
         this.catesv.delete(id).subscribe({
           next : (value) => {
-            Swal.fire({
-              title: "Đã xóa!",
-              text: "Danh mục đã được xóa",
-              icon: "success"
-            });
+            this.catesv.getAll().subscribe({
+              next : (value) => {
+                  this.listCate = value
+              },
+            })
           },
           error : (err) => {
             Swal.fire({

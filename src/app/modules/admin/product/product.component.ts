@@ -14,6 +14,6 @@ export class ProductComponent {
   constructor(private productSv : ProductService){}
 
   ngOnInit() {
-    this.productSv.getAll().subscribe( e => this.listPro = of(e))
+    this.productSv.getAll('').subscribe( e => this.listPro = of(e))
   }
 }

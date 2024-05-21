@@ -190,10 +190,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="invoice-title">
-                                    <h4 class="float-end font-size-15">order._id
-                                        <span class="badge bg-success font-size-12 ms-2"
-                                            ng-if="order.status == 'Đã Giao Hàng'">
-                                            Đã Giao Hàng
+                                    <h4 class="float-end font-size-15">{{order.id}}
+                                        <span class="badge bg-success font-size-12 ms-2">
+                                            {{order.status}}
                                         </span>
 <!-- 
                                         <span class="badge bg-danger font-size-12 ms-2"
@@ -227,10 +226,10 @@
                                     <div class="col-sm-6">
                                         <div class="text-muted">
                                             <h5 class="font-size-16 mb-3">Thông Tin Khách Hàng</h5>
-                                            <h5 class="font-size-15 mb-2">order.name </h5>
-                                            <p class="mb-1">order.shippingAddress </p>
-                                            <p class="mb-1">order.email</p>
-                                            <p> order.mobile </p>
+                                            <h5 class="font-size-15 mb-2">{{order.fullName}}</h5>
+                                            <p class="mb-1">Giao hàng nhanh</p>
+                                            <p class="mb-1">{{order.email}}</p>
+                                            <p> {{order.phone}} </p>
                                         </div>
                                     </div>
                                     <!-- end col -->
@@ -238,15 +237,15 @@
                                         <div class="text-muted text-sm-end">
                                             <div>
                                                 <h5 class="font-size-15 mb-1">Phương Thức Thanh Toán</h5>
-                                                <p>order.paymentMethod </p>
+                                                <p>{{order.paid == true ? 'Thanh toán online' : 'Thanh toán khi nhận hàng'}} </p>
                                             </div>
                                             <div class="mt-4">
                                                 <h5 class="font-size-15 mb-1">Phương Thức Vận Chuyển</h5>
-                                                <p> order.shippingMethod </p>
+                                                <p> Giao hàng nhanh</p>
                                             </div>
                                             <div class="mt-4">
                                                 <h5 class="font-size-15 mb-1">Ngày Đặt Hàng</h5>
-                                                <p> order.createdAt</p>
+                                                <p>{{order.orderDate}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -281,13 +280,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="item in order.items">
+                                                <tr *ngFor="let item of order.orderDetails">
                                                     <td>
-                                                        <img src=""
+                                                        <img [src]="item.image"
                                                             alt="" class="img-fluid"
                                                             style="width: 50px;">
                                                     </td>
-                                                    <td>item.product.title
+                                                    <td>{{item.name}}
                                                         <!-- <small class="text-muted d-block">Kích Thước: {{
                                                             item.variant.size }}</small>
                                                         <small class="text-muted d-block">Màu Sắc: {{ item.variant.color
@@ -295,16 +294,10 @@
                                                     </td>
                                                     <td>
                                                         <p class="fw-bold mb-0">
-                                                            <!-- {{ item.product.sale > 0 ? ((item.product.price -
-                                                            (item.product.price *
-                                                            item.product.sale / 100)) | currency: "": 0) + "đ" :
-                                                            (item.product.price |
-                                                            currency:
-                                                            "": 0) + "đ" }} -->
-                                                            99d
+                                                            {{item.price}}đ
                                                         </p>
                                                     </td>
-                                                    <td>item.quantity </td>
+                                                    <td>{{item.quantity}} </td>
                                                     <td>
                                                         <p class="fw-bold mb-0">
                                                             <!-- {{ item.product.sale > 0 ? ((item.product.price -
@@ -313,16 +306,22 @@
                                                             + "đ" :
                                                             (item.product.price *
                                                             item.quantity | currency: "": 0) + "đ" }} -->
-                                                            99d
+                                                            {{item.price * item.quantity}}đ
                                                         </p>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
+                                                    <td colspan="4" class="text-end">Tiền giảm</td>
+                                                    <td>
+                                                        <p class="fw-bold mb-0">{{order.moneyReduced}}đ</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <td colspan="4" class="text-end">Tổng Tiền</td>
                                                     <td>
-                                                        <p class="fw-bold mb-0">totalđ</p>
+                                                        <p class="fw-bold mb-0">{{order.money}}đ</p>
                                                     </td>
                                                 </tr>
                                             </tfoot>

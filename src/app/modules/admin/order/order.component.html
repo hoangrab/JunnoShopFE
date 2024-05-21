@@ -15,10 +15,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>order._id </td>
-                    <td>order.name </td>
-                    <td>order.createdAt</td>
+                <tr *ngFor="let item of listOrder">
+                    <td>{{item.id}}</td>
+                    <td>{{item.fullName}}</td>
+                    <td>{{item.orderDate}}</td>
                     <td>
                         <span class="badge text-bg-secondary" ng-if="order.status === 'Chờ Xác Nhận'">Chờ Xác
                             Nhận</span>
@@ -31,7 +31,7 @@
                         <span class="badge text-bg-danger" ng-if="order.status === 'Đã Hủy'">Đã Hủy</span> -->
                     </td>
                     <td>
-                        <a [routerLink]="['/admin/order-detail']" class="btn btn-sm btn-danger">Xem</a>
+                        <a [routerLink]="['/admin/order-detail/' + item.id]" class="btn btn-sm btn-danger">Xem</a>
                     </td>
                 </tr>
             </tbody>

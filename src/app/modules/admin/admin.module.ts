@@ -44,7 +44,8 @@ import { ProductEditComponent } from './product/product-edit/product-edit.compon
     OrderComponent,
     OrderDetailComponent,
     ProductComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    DaskboardComponent
   ],
   imports: [
     CommonModule,

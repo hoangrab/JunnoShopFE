@@ -16,6 +16,8 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CartComponent } from './cart/cart.component';
 import { LookupComponent } from './lookup/lookup.component';
+import { UserOrderComponent } from './user-order/user-order.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -32,7 +34,8 @@ import { LookupComponent } from './lookup/lookup.component';
     ProductDetailComponent,
     CartComponent,
     CheckoutComponent,
-    LookupComponent
+    LookupComponent,
+    UserOrderComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +43,8 @@ import { LookupComponent } from './lookup/lookup.component';
     GoogleSigninButtonModule,
     ReactiveFormsModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ]
 })
 export class ClientModule { }
