@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Stomp } from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -22,16 +23,15 @@ export class WebsocketService {
     console.log('ket noi ok')
   }
 
-  joinRoom(roomId: string) {
+  joinRoom() {
     this.stompClient.connect({}, ()=>{
       this.stompClient.subscribe('/topic/notifications', (messages: any) => {
-        // const messageContent = JSON.parse(messages.body);
-        // const currentMessage = this.messageSubject.getValue();
-
-        // this.messageSubject.next(currentMessage);
-        console.log('value',messages.body)
-
+        this.messageSubject.next('hiban')
       })
     })
+  }
+
+  getMessages(): Observable<any> {
+    return this.messageSubject.asObservable();
   }
 }

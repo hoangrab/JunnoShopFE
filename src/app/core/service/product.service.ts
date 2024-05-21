@@ -9,8 +9,8 @@ export class ProductService {
 
   constructor(private http : HttpClient){}
   
-  getAll() {
-    return this.http.get(`${BaseUrlApi.url}products`);
+  getAll(key : string) {
+    return this.http.get(`${BaseUrlApi.url}products${key}`);
   }
 
   getById(id : string) {
@@ -27,5 +27,9 @@ export class ProductService {
 
   delete(id : string) {
     return this.http.delete(`${BaseUrlApi.url}/${id}`);
+  }
+
+  searches(key : string) {
+    return this.http.get(`${BaseUrlApi.url}es/products?name=${key}`)
   }
 }

@@ -38,15 +38,15 @@
         <div class="row mt-3">
             <div class="col-xl-6 col-sm-12">
                 <div class="d-flex">
-                    <div class="img-small d-flex flex-row gap-3 me-3">
-                        <ng-container *ngFor="let item of product.productImages">
-                            <img [src]="item.imageUrl" class="img-fluid cursor-pointer"
-                            width="200px" />
+                    <div class="img-small d-flex flex-column gap-3 me-3">
+                        <ng-container *ngFor="let item of product.productImages; index as index">
+                            <img [ngClass]="imageChosse == index ? 'imageborder' : ''" [src]="item.imageUrl" class="img-fluid cursor-pointer"
+                            width="100px" (click)="chooseImgae(index)" />
                         </ng-container>
                     </div>
 
                     <div class="img-larger">
-                        <img src="" class="img-fluid" id="img-larger" />
+                        <img style="width: 500px;" [src]="product.productImages[imageChosse].imageUrl" class="img-fluid" id="img-larger" />
                     </div>
                 </div>
             </div>
@@ -78,14 +78,14 @@
                         <p class="mb-0 fw-bold fs-4 text-danger">
                             <!-- {{ product.sale > 0 ? ((product.price - (product.price * product.sale / 100)) |
                             currency:'':'0') + 'đ' : (product.price | currency:'':'0') + 'đ' }} -->
+                            {{product.salePrice || product.originalPrice}}
+                        </p>
+                        <p class="mb-0 fw-light text-decoration-line-through" *ngIf="product.salePrice">
+                            <!-- {{ product.sale > 0 ? (product.price | currency:'':'0') + 'đ' : '' }} -->
                             {{product.originalPrice}}
                         </p>
-                        <p class="mb-0 fw-light text-decoration-line-through" ng-if="product.sale > 0">
-                            <!-- {{ product.sale > 0 ? (product.price | currency:'':'0') + 'đ' : '' }} -->
-                            {{product.salePrice}}
-                        </p>
-                        <span class="badge text-bg-danger" ng-if="product.sale > 0">
-                            10%
+                        <span class="badge text-bg-danger" *ngIf="product.salePrice">
+                            {{((product.originalPrice-product.salePrice)/product.originalPrice)*100 | number:'1.0-0'}}%
                         </span>
                     </div>
 

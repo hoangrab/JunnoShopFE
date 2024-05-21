@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OrderService } from 'src/app/core/service/order.service';
 
 @Component({
   selector: 'app-order',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class OrderComponent {
 
+  listOrder : any;
+
+  constructor(private orderSv : OrderService){}
+  
+  ngOnInit() {
+    this.orderSv.getAll().subscribe(param => this.listOrder = param)
+  }
 }

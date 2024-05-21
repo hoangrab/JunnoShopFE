@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { ClientModule } from './modules/client/client.module';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { RouterModule } from '@angular/router';
     SocialLoginModule,
     SweetAlert2Module.forRoot(),
     HttpClientModule,
+    NgxPaginationModule
   ],
   providers: [
     {

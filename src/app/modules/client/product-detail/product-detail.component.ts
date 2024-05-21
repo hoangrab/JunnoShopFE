@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class ProductDetailComponent {
 
+  imageChosse = 0
   formReview !: FormGroup;
 
   id = ''
@@ -85,7 +86,7 @@ export class ProductDetailComponent {
       image: this.product.productImages[0].imageUrl,
       size: this.product.productItems[this.pselectDefault].size,
       color: this.product.productItems[this.pselectDefault].color,
-      price: this.product.salePrice,
+      price: this.product.flashSale == true ? this.product.salePrice : this.product.originalPrice,
       quantity: this.product.productItems[this.pselectDefault].quantity
     }
     let list : cartModel[] = []
@@ -149,5 +150,9 @@ export class ProductDetailComponent {
   
   counter(i: number) {
     return new Array(i);
-}
+  }
+
+  chooseImgae(id : number) {
+    this.imageChosse = id;
+  }
 }

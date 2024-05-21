@@ -81,48 +81,36 @@
                     <thead>
                         <th>Khách Hàng</th>
                         <th>Ngày Đặt Hàng</th>
-                        <th>Giỏ Hàng</th>
+                        <th>Tổng tiền</th>
                         <th>Trạng Thái</th>
                         <th>Thao Tác</th>
                     </thead>
 
                     <tbody>
-                        <tr ng-repeat="order in waitingOrders">
-                            <td>order.name </td>
-                            <td>order.createdAt</td>
-                            <td>
-                                Sản Phẩm
-                                <!-- <span type="button" class="fw-bold" data-bs-toggle="modal"
-                                    data-bs-target="#dh-{{ order._id }}">
-                                </span> -->
-                            </td>
-                            <td>
-                                <span class="badge text-bg-primary" ng-if="order.status === 'Chờ Xác Nhận'">Chờ
-                                    Xác
-                                    Nhận</span>
-                                <span class="badge text-bg-secondary" ng-if="order.status === 'Đã Xác Nhận'">Đã
-                                    Xác
-                                    Nhận</span>
-                                <span class="badge text-bg-info" ng-if="order.status === 'Đang Vận Chuyển'">Đang
-                                    Giao</span>
-                                <span class="badge text-bg-success" ng-if="order.status === 'Đã Giao'">Đã
-                                    Giao</span>
-                                <span class="badge text-bg-danger" ng-if="order.status === 'Đã Hủy'">Đã
-                                    Hủy</span>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-danger">
-                                    <i class="fa-solid fa-eye"></i>
-                                </a>
-
-                                <a ng-click="changeStatus(order)" class="btn btn-primary">
-                                    <i class="fa-solid fa-check"></i>
-                                </a>
-                            </td>
+                        <tr *ngFor="let item of listOrder">
+                            <ng-container *ngIf="item.status == 'CONFIRM'">
+                                <td>{{item.fullName}}</td>
+                                <td>{{item.orderDate}}</td>
+                                <td>
+                                    {{item.money}}
+                                </td>
+                                <td>
+                                    <span class="badge text-bg-primary">Chờ Xác Nhận</span>
+                                </td>
+                                <td>
+                                    <a [routerLink]="'/admin/order-detail/' + item.id" class="btn btn-danger">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a ng-click="changeStatus(order)" class="btn btn-primary">
+                                        <i class="fa-solid fa-check"></i>
+                                    </a>
+                                </td>
+                            </ng-container>
                         </tr>
 
 
-                        <tr ng-if="waitingOrders.length == 0">
+                        <tr *ngIf="!listOrder">
                             <td colspan="5" class="text-center">Bạn không có đơn hàng cần xác nhận</td>
                         </tr>
                     </tbody>
@@ -130,7 +118,8 @@
                     <tfoot>
                         <tr>
                             <th colspan="5">
-                                <a href="#!order">Xem tất cả đơn hàng <i class="fa-solid fa-arrow-right"></i></a>
+                                <a [routerLink]="'/admin/order'">Xem tất cả đơn hàng <i
+                                        class="fa-solid fa-arrow-right"></i></a>
                             </th>
                         </tr>
                     </tfoot>
@@ -162,33 +151,14 @@
                         <div class="card mb-3">
                             <div class="row g-0 px-4 py-2">
                                 <div class="col-md-2 d-flex align-items-center justify-content-between">
-                                    <img src="./src/assets/img/avatar.jpg"
+                                    <img src="./assets/img/icon/avatar.png"
                                         class="img-fluid rounded-circle w-100 m-auto h-auto" alt="...">
                                 </div>
                                 <div class="col-md-10">
                                     <div class="card-body d-flex align-items-center justify-content-between">
                                         <div>
-                                            <h5 class="card-title">Đặng Thị Thanh Huyền</h5>
+                                            <h5 class="card-title">Trần Đình Hoan</h5>
                                             <p class="mb-0 text-secondary fs-6">Truy Cập 25 Phút Trước</p>
-                                        </div>
-
-                                        <a href="" class="badge text-bg-primary">Xem Chi Tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card mb-3">
-                            <div class="row g-0 px-4 py-2">
-                                <div class="col-md-2 d-flex align-items-center justify-content-between">
-                                    <img src="./src/assets/img/avatar.jpg"
-                                        class="img-fluid rounded-circle w-100 m-auto h-auto" alt="...">
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="card-body d-flex align-items-center justify-content-between">
-                                        <div>
-                                            <h5 class="card-title">Trần Công Minh</h5>
-                                            <p class="mb-0 text-secondary fs-6">Đang Trực Tuyến</p>
                                         </div>
 
                                         <a href="" class="badge text-bg-primary">Xem Chi Tiết</a>
